@@ -23,5 +23,16 @@ namespace JWTauthentication_dotnetcore.Controllers
         if (!credentials) return new ForbidResult("The username/password was wrong");
         return new OkObjectResult(TokenManager.GenerateToken(user.Username));
       }
+
+      [HttpGet]
+      public IActionResult Validate([FromHeader]string token, [FromHeader]string username)
+      {
+        bool exists = new UserRepository().GetUser(username) != null;
+        if (!exists) return new NotFoundObjectResult("The user was not found");
+        string tokenUsername = TokenManager.ValidateToken(token);
+        if (username.Equals(tokenUsername))
+          return Ok();
+        return BadRequest();
+      }
     }
 }

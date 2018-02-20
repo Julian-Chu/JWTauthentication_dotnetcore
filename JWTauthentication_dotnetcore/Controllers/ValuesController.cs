@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JWTauthentication_dotnetcore.filter;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JWTauthentication_dotnetcore.Controllers
@@ -18,6 +19,7 @@ namespace JWTauthentication_dotnetcore.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
+        [JWTAuthorization]
         public string Get(int id)
         {
             return "value";

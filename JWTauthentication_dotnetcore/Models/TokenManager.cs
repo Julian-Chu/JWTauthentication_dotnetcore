@@ -12,10 +12,10 @@ namespace JWTauthentication_dotnetcore.Models
 
   public class TokenManager
   {
-    private static string Secret = "testJWT";
+    private static string Secret = "TestJWTtestJWTtestJWTtestJWT";
     public static string GenerateToken(string username)
     {
-      byte[] key = Convert.FromBase64String(Secret);
+      byte[] key = Convert.FromBase64String(Secret); // Generate Secret String in C#:  HMACSHA256 hmac = new HMACSHA256(); string key = Convert.ToBase64String(hmac.Key);
       SymmetricSecurityKey securityKey = new SymmetricSecurityKey(key);
       SecurityTokenDescriptor descriptor = new SecurityTokenDescriptor()
       {

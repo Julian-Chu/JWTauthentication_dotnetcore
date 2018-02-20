@@ -32,15 +32,19 @@ namespace JWTauthentication_dotnetcore.Models
       //if add custom data:  token.Payload["favouriteFood"] = "cheese";
       return handler.WriteToken(token);
     }
-
+    /// <summary>
+    /// read, validate token, and create ClaimsPrinciple to hold user's identity
+    /// convert tokein in string to JwtSecurityToken
+    /// </summary>
+    /// <param name="token"></param>
+    /// <returns></returns>
     public static ClaimsPrincipal GetPrincipal(string token)
     {
       try
       {
         JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
         JwtSecurityToken jwtToken = (JwtSecurityToken) tokenHandler.ReadToken(token);
-        if (jwtToken == null)
-          return null;
+        if (jwtToken == null) return null;
         byte[] key = Convert.FromBase64String(Secret);
         TokenValidationParameters parameters = new TokenValidationParameters()
         {
@@ -59,6 +63,11 @@ namespace JWTauthentication_dotnetcore.Models
       }
     }
 
+    /// <summary>
+    /// extract data from token
+    /// </summary>
+    /// <param name="token"></param>
+    /// <returns></returns>
     public static string ValidateToken(string token)
     {
       string username = null;
